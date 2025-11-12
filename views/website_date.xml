@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+<!-- 
+<record id="menu_info_newclient" model="website.menu">
+        <field name="name">Nuevos clientes</field>
+        <field name="url">/nuevo_cliente</field>
+        <field name="sequence" eval="85"/>
+        <field name="parent_id" ref="website.menu_site"/>
+        </record> -->
+<record id="menu_info_newclient" model="website.menu">
+  <field name="name">Sea cliente</field>
+  <field name="url">/nuevo_cliente</field>
+  <field name="sequence" eval="85"/>
+</record>
+
+<template id="template_nuevo_cliente_form" name="Formulario Nuevos Clientes">
+  <t t-call="website.layout">
+    <div class="container mt-5">
+      <div class="text-center mb-4">
+        <img src="/exe_website_date/static/src/img/proceso_registro.png" class="img-fluid" alt="Proceso de registro" style="max-width: 50%; height: auto;"/>
+      </div> 
+      <form action="/nuevo_cliente/enviar" method="post" class="o_form">
+       <!-- Nombre y Local -->
+          <div class="col-md-6 mb-3">
+            <label for="name">Apellido y Nombre</label>
+            <input type="text" name="name" id="name" class="form-control" required="required"/>
+          </div>
+      <!-- Dirección -->
+          <div class="col-md-6 mb-3">
+            <label for="street">Dirección</label>
+            <input type="text" name="street" id="street" class="form-control" required="1"/>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="zip">Código postal</label>
+            <input type="text" name="zip" id="zip" class="form-control" required="1"/>
+          </div>
+         <!-- Ubicación -->
+          <div class="col-md-6 mb-3">
+            <label for="city">Localidad</label>
+            <input type="text" name="city" id="city" class="form-control" required="1"/>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="state_id">Provincia</label>
+            <select name="state_id" id="state_id" class="form-control"  >
+              <t t-foreach="states" t-as="state">
+                <option t-att-value="state.id"><t t-esc="state.name" required="1"/></option>
+              </t>
+            </select>
+          </div>
+         <div class="col-md-6 mb-3">
+            <label for="city">Pais</label>
+            <input type="text" name="country" id="country" class="form-control" required="1"/>
+          </div>
+
+     
+          <div class="col-md-6 mb-3">
+            <label for="afip_id">Responsabilidad ante AFIP/ARCA</label>
+            <select name="afip_id" id="afip_id" class="form-control">
+             <t t-foreach="afip_responsabilities" t-as="afip">
+                <option t-att-value="afip.id"><t t-esc="afip.name" required="1"/></option>
+              </t>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="vat">CUIT (Sin Guiones)</label>
+            <input type="hidden" name="id_type" value="CUIT"/>
+            <input type="text" name="vat" id="vat" class="form-control"
+                  maxlength="11" pattern="\d{11}" title="Ingresá 11 dígitos sin guiones"
+                  required="1" oninput="this.value = this.value.replace(/\D/g, '').slice(0,11)"/>
+          </div>
+      
+
+          
+         
+
+         
+
+          
+
+      
+          <div class="col-md-6 mb-3">
+            <label for="mobile">Celular con WhatsApp</label>
+            <input type="text" name="mobile" id="mobile" class="form-control" required="1"/>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="phone">Teléfono</label>
+            <input type="text" name="phone" id="phone" class="form-control" required="1"/>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="email">Correo electrónico</label>
+            <input type="email" name="email" id="email" class="form-control" required="1"/>
+          </div>
+          <!-- ¿Cómo nos conociste? -->
+          <div class="col-md-6 mb-3">
+            <label for="how_met_us">¿Cómo nos conociste?</label>
+            <select name="how_met_us" id="how_met_us" class="form-control" required="1">
+              <option value="">Seleccione una opción</option>
+              <option value="recommendation">Recomendaciones</option>
+              <option value="google">Búsqueda en Google</option>
+              <option value="social">Redes sociales</option>
+              <option value="ads">Publicidad</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3" id="how_met_us_other_container" style="display: none;">
+            <label for="how_met_us_other">Especificar otro</label>
+            <input type="text" name="how_met_us_other" id="how_met_us_other" class="form-control"/>
+          </div>
+
+          <!-- Productos que te interesan -->
+          <div class="col-md-12 mb-3">
+            <label>¿Qué productos te interesan?</label><br/>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="product_interests" value="accessories" id="interes_accesorios"/>
+              <label class="form-check-label" for="interes_accesorios">Accesorios</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="product_interests" value="spare_parts" id="interes_repuestos"/>
+              <label class="form-check-label" for="interes_repuestos">Repuestos</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="product_interests" value="other" id="interes_otros"/>
+              <label class="form-check-label" for="interes_otros">Otros</label>
+            </div>
+          </div>
+          <div class="col-md-12 mb-3" id="product_interest_other_container" style="display: none;">
+            <label for="product_interest_other">Especificar otros productos</label>
+            <input type="text" name="product_interest_other" id="product_interest_other" class="form-control"/>
+          </div>
+
+          <!-- Tipo de cliente -->
+          <div class="col-md-12 mb-3">
+            <label>¿Cuál es tu situación?</label><br/>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="client_type" value="entrepreneur" id="tipo_emprendedor"/>
+              <label class="form-check-label" for="tipo_emprendedor">Quiero emprender</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="client_type" value="business_owner" id="tipo_negocio"/>
+              <label class="form-check-label" for="tipo_negocio">Tengo un negocio</label>
+            </div>
+          </div>
+
+          <!-- Campos para emprendedores -->
+          <div id="campos_emprendedor" style="display: none;">
+            <div class="col-md-12 mb-3">
+              <label>¿Tenés experiencia previa en el sector?</label><br/>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="has_experience" value="1" id="exp_si"/>
+                <label class="form-check-label" for="exp_si">Sí</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="has_experience" value="0" id="exp_no"/>
+                <label class="form-check-label" for="exp_no">No</label>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="motivation_text">¿Qué te motiva a emprender en el rubro?</label>
+              <textarea name="motivation_text" id="motivation_text" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+
+          <!-- Campos para negocios -->
+          <div id="campos_negocio" style="display: none;">
+            <div class="col-md-6 mb-3">
+              <label for="website_url">URL del sitio web</label>
+              <input type="url" name="website_url" id="website_url" class="form-control"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="social_url">URL de red social</label>
+              <input type="url" name="social_url" id="social_url" class="form-control"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="business_activity">Rubro / actividad</label>
+              <input type="text" name="business_activity" id="business_activity" class="form-control"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="business_years">Años operando</label>
+              <input type="number" name="business_years" id="business_years" class="form-control"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="employee_count">Cantidad de empleados</label>
+              <input type="number" name="employee_count" id="employee_count" class="form-control"/>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="store_count">Cantidad de locales</label>
+              <select name="store_count" id="store_count" class="form-control">
+                <option value="">Seleccione una opción</option>
+                <option value="1">1</option>
+                <option value="2_plus">2 o más</option>
+                <option value="traveler">Soy viajante</option>
+              </select>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="product_categories_other">¿Qué categorías de productos le interesan más?</label>
+              <textarea name="product_categories_other" id="product_categories_other" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+
+          <!-- Comentarios adicionales -->
+          <div class="col-md-12 mb-3">
+            <label for="additional_comments">Comentarios adicionales</label>
+            <textarea name="additional_comments" id="additional_comments" class="form-control" rows="3"></textarea>
+          </div>
+         
+          <div class="col-md-12 mb-3">
+            <label>¿Estás trabajando con nuestra mercadería?</label><br/>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="trabaja_mercaderia" id="mercaderia_si" value="Sí" onchange="toggleOrigenPregunta('si')" required="1"/>
+              <label class="form-check-label" for="mercaderia_si">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="trabaja_mercaderia" id="mercaderia_no" value="No" onchange="toggleOrigenPregunta('no')" required="1"/>
+              <label class="form-check-label" for="mercaderia_no">No</label>
+            </div>
+          </div>
+
+          <!-- Pregunta condicional: SI -->
+          <div class="col-md-12 mb-4" id="pregunta_si" style="display: none;">
+            <label for="origen_producto_si">¿A quién le compras o comprabas los repuestos?</label>
+            <textarea name="origen_producto_si" id="origen_producto_si" class="form-control" rows="2"></textarea>
+          </div>
+
+          <!-- Pregunta condicional: NO -->
+          <div class="col-md-12 mb-4" id="pregunta_no" style="display: none;">
+            <label for="origen_producto_no">¿Cómo conociste nuestros productos?</label>
+            <textarea name="origen_producto_no" id="origen_producto_no" class="form-control" rows="2"></textarea>
+          </div>
+
+          <!-- Script para mostrar/ocultar -->
+          <script>
+            function toggleOrigenPregunta(respuesta) {
+              document.getElementById('pregunta_si').style.display = respuesta === 'si' ? 'block' : 'none';
+              document.getElementById('pregunta_no').style.display = respuesta === 'no' ? 'block' : 'none';
+            }
+          </script>
+
+          <!-- Botón enviar -->
+          <div class="col-12 text-center">
+            <button type="submit" class="btn btn-success btn-lg px-4">ENVIAR</button>
+          </div>
+
+      </form>
+    </div>
+  </t>
+</template>
+
+<template id="template_nuevo_cliente_gracias" name="Gracias por tu contacto">
+  <t t-call="website.layout">
+    <div class="oe_structure">
+      <section class="container py-5">
+        <div class="row justify-content-center">
+          <div class="col-md-8 text-center">
+            <h1 class="display-4 mb-4 text-success">¡Gracias por registrarte!</h1>
+            <p class="lead mb-3">Tu solicitud fue recibida correctamente.</p>
+            <p class="mb-4">Nos pondremos en contacto a la brevedad para continuar con el proceso.</p>
+            <a href="/" class="btn btn-outline-primary btn-lg">
+              Volver a la página de inicio
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </t>  
+</template>
+
+
+
+
+</odoo>
