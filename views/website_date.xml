@@ -129,14 +129,15 @@
           </div>
 
           <!-- Tipo de cliente -->
+          <!-- ¿Cuál es tu situación? -->
           <div class="col-md-12 mb-3">
             <label>¿Cuál es tu situación?</label><br/>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="client_type" value="entrepreneur" id="tipo_emprendedor"/>
+              <input class="form-check-input" type="radio" name="client_type" value="entrepreneur" id="tipo_emprendedor" onchange="toggleClientType()"/>
               <label class="form-check-label" for="tipo_emprendedor">Quiero emprender</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="client_type" value="business_owner" id="tipo_negocio"/>
+              <input class="form-check-input" type="radio" name="client_type" value="business_owner" id="tipo_negocio" onchange="toggleClientType()"/>
               <label class="form-check-label" for="tipo_negocio">Tengo un negocio</label>
             </div>
           </div>
@@ -144,19 +145,19 @@
           <!-- Campos para emprendedores -->
           <div id="campos_emprendedor" style="display: none;">
             <div class="col-md-12 mb-3">
-              <label>¿Tenés experiencia previa en el sector?</label><br/>
+              <label>¿Tenés experiencia previa en el sector de la tecnología?</label><br/>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="has_experience" value="1" id="exp_si"/>
+                <input class="form-check-input" type="radio" name="has_experience" value="1" id="exp_si" required="required"/>
                 <label class="form-check-label" for="exp_si">Sí</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="has_experience" value="0" id="exp_no"/>
+                <input class="form-check-input" type="radio" name="has_experience" value="0" id="exp_no" required="required"/>
                 <label class="form-check-label" for="exp_no">No</label>
               </div>
             </div>
             <div class="col-md-12 mb-3">
               <label for="motivation_text">¿Qué te motiva a emprender en el rubro?</label>
-              <textarea name="motivation_text" id="motivation_text" class="form-control" rows="3"></textarea>
+              <textarea name="motivation_text" id="motivation_text" class="form-control" rows="3" required="required"></textarea>
             </div>
           </div>
 
@@ -234,7 +235,12 @@
               document.getElementById('pregunta_no').style.display = respuesta === 'no' ? 'block' : 'none';
             }
           </script>
-
+          <script>
+          function toggleClientType() {
+            const tipo = document.querySelector('input[name="client_type"]:checked')?.value;
+            document.getElementById('campos_emprendedor').style.display = tipo === 'entrepreneur' ? 'block' : 'none';
+          }
+        </script>
           <!-- Botón enviar -->
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-success btn-lg px-4">ENVIAR</button>
