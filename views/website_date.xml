@@ -207,7 +207,7 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="product_categories_other">¿Qué productos le interesan más?</label>
-              <select name="product_categories_other" id="product_categories_other" class="form-control" required>
+              <select name="product_categories_other" id="product_categories_other" class="form-control" >
                 <option value="">Seleccione una opción</option>
                 <option value="chargers_and_cables">Cargadores y cables</option>
                 <option value="cases_and_tempered_glass">Fundas y vidrios templados</option>

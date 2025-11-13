@@ -13,7 +13,7 @@
     ],
     'assets': {
     'web.assets_frontend': [
-        'exe_website_date/views/website_date.xml',
+        'exe_create_contact_website/views/website_date.xml',
     ],
     },
 

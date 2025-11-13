@@ -14,7 +14,7 @@ class WebsiteNewClientForm(http.Controller):
         # Responsabilidad ante AFIP
         afip_responsabilities = request.env['l10n_ar.afip.responsibility.type'].sudo().search([])
 
-        return request.render('exe_website_date.template_nuevo_cliente_form', {
+        return request.render('exe_create_contact_website.template_nuevo_cliente_form', {
             'states': states,
             'afip_responsabilities': afip_responsabilities
         })
@@ -44,7 +44,7 @@ class WebsiteNewClientForm(http.Controller):
             states = request.env['res.country.state'].sudo().search([('country_id', '=', argentina.id)])
             afip_responsabilities = request.env['l10n_ar.afip.responsibility.type'].sudo().search([])
 
-            return request.render('exe_website_date.template_nuevo_cliente_form', {
+            return request.render('exe_create_contact_website.template_nuevo_cliente_form', {
                 'error': "El CUIT debe tener exactamente 11 dígitos numéricos sin guiones.",
                 'states': states,
                 'afip_responsabilities': afip_responsabilities,
