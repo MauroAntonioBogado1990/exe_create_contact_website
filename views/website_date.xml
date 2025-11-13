@@ -108,7 +108,20 @@
           </div>
 
           <!-- Productos que te interesan -->
-          <div class="col-md-12 mb-3">
+          <div class="col-md-6 mb-3">
+            <label for="interest_products">¿Qué productos te interesan?</label>
+            <select name="interest_products" id="interest_products" class="form-control" required="1">
+              <option value="">Seleccione una opción</option>
+              <option value="accessories">Accesorios</option>
+              <option value="spare-parts">Repuestos</option>
+              <option value="other_products">Otro</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3" id="interest_products_other_container" style="display: none;">
+            <label for="interest_products_other">Especificar otro</label>
+            <input type="text" name="interest_products_other" id="interest_products_other" class="form-control"/>
+          </div>
+          <!-- <div class="col-md-12 mb-3">
             <label>¿Qué productos te interesan?</label><br/>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="checkbox" name="product_interests" value="accessories" id="interes_accesorios"/>
@@ -126,7 +139,7 @@
           <div class="col-md-12 mb-3" id="product_interest_other_container" style="display: none;">
             <label for="product_interest_other">Especificar otros productos</label>
             <input type="text" name="product_interest_other" id="product_interest_other" class="form-control"/>
-          </div>
+          </div> -->
 
           <!-- Tipo de cliente -->
           <!-- ¿Cuál es tu situación? -->
@@ -192,9 +205,26 @@
                 <option value="traveler">Soy viajante</option>
               </select>
             </div>
-            <div class="col-md-12 mb-3">
-              <label for="product_categories_other">¿Qué categorías de productos le interesan más?</label>
-              <textarea name="product_categories_other" id="product_categories_other" class="form-control" rows="3"></textarea>
+            <div class="col-md-6 mb-3">
+              <label for="product_categories_other">¿Qué productos le interesan más?</label>
+              <select name="product_categories_other" id="product_categories_other" class="form-control" required>
+                <option value="">Seleccione una opción</option>
+                <option value="chargers_and_cables">Cargadores y cables</option>
+                <option value="cases_and_tempered_glass">Fundas y vidrios templados</option>
+                <option value="headphones_and_speakers">Auriculares y parlantes</option>
+                <option value="cellphone_parts">Repuestos de celular</option>
+                <option value="repair_tools">Herramientas de reparación de celulares</option>
+                <option value="bazaar">Bazar</option>
+                <option value="hardware_store">Ferretería</option>
+                <option value="solar_energy">Energía Solar</option>
+                <option value="cameras_and_alarms">Cámaras y alarmas</option>
+                <option value="others">Otros</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 mb-3" id="text_others_products_categories_container" style="display: none;">
+              <label for="text_others_products_categories">Especificar otros productos</label>
+              <input type="text" name="text_others_products_categories" id="text_others_products_categories" class="form-control"/>
             </div>
           </div>
 
@@ -240,6 +270,77 @@
             const tipo = document.querySelector('input[name="client_type"]:checked')?.value;
             document.getElementById('campos_emprendedor').style.display = tipo === 'entrepreneur' ? 'block' : 'none';
           }
+        </script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const select = document.getElementById('how_met_us');
+            const otherContainer = document.getElementById('how_met_us_other_container');
+
+            select.addEventListener('change', function () {
+              if (this.value === 'other') {
+                otherContainer.style.display = 'block';
+              } else {
+                otherContainer.style.display = 'none';
+              }
+            });
+          });
+        </script>
+        <!--PARA QUE SE VES LOS PRODUCTOS EN LO QUE ESTA INTERESADO -->
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const select = document.getElementById('interest_products');
+          const otherContainer = document.getElementById('interest_products_other_container');
+          const otherInput = document.getElementById('interest_products_other');
+
+          select.addEventListener('change', function () {
+            if (this.value === 'other_products') {
+              otherContainer.style.display = 'block';
+              otherInput.setAttribute('required', 'required');
+            } else {
+              otherContainer.style.display = 'none';
+              otherInput.removeAttribute('required');
+              otherInput.value = ''; // Limpia el campo si se oculta
+            }
+          });
+        });
+      </script>
+      <!--PARA QUE SE VEA NEGOCIO-->
+              <script>
+          function toggleClientType() {
+            const tipoNegocio = document.getElementById('tipo_negocio');
+            const camposNegocio = document.getElementById('campos_negocio');
+
+            if (tipoNegocio.checked) {
+              camposNegocio.style.display = 'block';
+            } else {
+              camposNegocio.style.display = 'none';
+
+              // Opcional: limpiar los campos si se ocultan
+              camposNegocio.querySelectorAll('input, select, textarea').forEach(el => {
+                el.value = '';
+                el.removeAttribute('required');
+              });
+            }
+          }
+        </script>
+        <!--SELECCION DE CATEGORIA-->
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const select = document.getElementById('product_categories_other');
+            const otherContainer = document.getElementById('text_others_products_categories_container');
+            const otherInput = document.getElementById('text_others_products_categories');
+
+            select.addEventListener('change', function () {
+              if (this.value === 'others') {
+                otherContainer.style.display = 'block';
+                otherInput.setAttribute('required', 'required');
+              } else {
+                otherContainer.style.display = 'none';
+                otherInput.removeAttribute('required');
+                otherInput.value = '';
+              }
+            });
+          });
         </script>
           <!-- Botón enviar -->
           <div class="col-12 text-center">
