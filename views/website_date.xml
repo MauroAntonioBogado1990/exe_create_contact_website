@@ -17,7 +17,7 @@
   <t t-call="website.layout">
     <div class="container mt-5">
       <div class="text-center mb-4">
-        <img src="/exe_website_date/static/src/img/proceso_registro.png" class="img-fluid" alt="Proceso de registro" style="max-width: 50%; height: auto;"/>
+        <img src="/exe_create_contact_website/static/src/img/proceso_registro.png" class="img-fluid" alt="Proceso de registro" style="max-width: 50%; height: auto;"/>
       </div> 
       <form action="/nuevo_cliente/enviar" method="post" class="o_form">
        <!-- Nombre y Local -->
@@ -68,16 +68,7 @@
                   maxlength="11" pattern="\d{11}" title="Ingresá 11 dígitos sin guiones"
                   required="1" oninput="this.value = this.value.replace(/\D/g, '').slice(0,11)"/>
           </div>
-      
-
-          
-         
-
-         
-
-          
-
-      
+            
           <div class="col-md-6 mb-3">
             <label for="mobile">Celular con WhatsApp</label>
             <input type="text" name="mobile" id="mobile" class="form-control" required="1"/>
@@ -121,26 +112,7 @@
             <label for="interest_products_other">Especificar otro</label>
             <input type="text" name="interest_products_other" id="interest_products_other" class="form-control"/>
           </div>
-          <!-- <div class="col-md-12 mb-3">
-            <label>¿Qué productos te interesan?</label><br/>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="product_interests" value="accessories" id="interes_accesorios"/>
-              <label class="form-check-label" for="interes_accesorios">Accesorios</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="product_interests" value="spare_parts" id="interes_repuestos"/>
-              <label class="form-check-label" for="interes_repuestos">Repuestos</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="product_interests" value="other" id="interes_otros"/>
-              <label class="form-check-label" for="interes_otros">Otros</label>
-            </div>
-          </div>
-          <div class="col-md-12 mb-3" id="product_interest_other_container" style="display: none;">
-            <label for="product_interest_other">Especificar otros productos</label>
-            <input type="text" name="product_interest_other" id="product_interest_other" class="form-control"/>
-          </div> -->
-
+          
           <!-- Tipo de cliente -->
           <!-- ¿Cuál es tu situación? -->
           <div class="col-md-12 mb-3">
@@ -359,8 +331,8 @@
         <div class="row justify-content-center">
           <div class="col-md-8 text-center">
             <h1 class="display-4 mb-4 text-success">¡Gracias por registrarte!</h1>
-            <p class="lead mb-3">Tu solicitud fue recibida correctamente.</p>
-            <p class="mb-4">Nos pondremos en contacto a la brevedad para continuar con el proceso.</p>
+<!--             
+            <p class="mb-4">Ahora tiene su contacto registrado.</p> -->
             <a href="/" class="btn btn-outline-primary btn-lg">
               Volver a la página de inicio
             </a>

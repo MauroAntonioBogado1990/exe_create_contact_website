@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="view_partner_form_custom_fields" model="ir.ui.view">
+    <field name="name">res.partner.form.custom.fields</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <!-- Insertamos después del campo 'category_id' -->
+      <xpath expr="//field[@name='category_id']" position="after">
+
+        <group string="Información Comercial">
+          <field name="how_met_us"/>
+          <field name="how_met_us_other" attrs="{'invisible': [('how_met_us', '!=', 'other')]}"/>
+
+          <field name="interest_products"/>
+          <field name="how_met_us_other_products" attrs="{'invisible': [('interest_products', '!=', 'other_products')]}"/>
+
+          <field name="product_categories_other"/>
+          <field name="text_others_products_categories" attrs="{'invisible': [('product_categories_other', '!=', 'others_products_categories')]}"/>
+
+          <field name="client_type"/>
+        </group>
+
+        <group string="Para emprendedores" attrs="{'invisible': [('client_type', '!=', 'entrepreneur')]}">
+          <field name="has_experience"/>
+          <field name="motivation_text"/>
+        </group>
+
+        <group string="Para negocios" attrs="{'invisible': [('client_type', '!=', 'business_owner')]}">
+          <field name="website_url"/>
+          <field name="social_url"/>
+          <field name="business_activity"/>
+          <field name="business_years"/>
+          <field name="employee_count"/>
+          <field name="store_count"/>
+        </group>
+
+        <group string="Comentarios">
+          <field name="additional_comments"/>
+        </group>
+
+      </xpath>
+    </field>
+  </record>
+</odoo>
